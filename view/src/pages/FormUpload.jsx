@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function FormUpload() {
     const [selectedFile, setSelectedFile] = useState();
-
+    const [ retorno , setRetorno ] = useState();
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
     };
@@ -17,8 +17,8 @@ function FormUpload() {
         fetch("http://localhost:3000/upload",{
             method: 'POST',
             body: formData
-        }).then((result ) => { console.log(result);  })
-        .catch((error) => { console.log(error);});
+        }).then((result ) => { console.log(result); setRetorno("ok") })
+        .catch((error) => { console.log(error); setRetorno(JSON.stringify(error)) });
             
     };
 
@@ -30,6 +30,10 @@ function FormUpload() {
         </div>
         <div className="mb-4">
             <button className="btn btn-primary" onClick={handleUpload}>Upload</button>
+        </div>
+        <div>
+            {retorno}
+
         </div>
         </>
     );
